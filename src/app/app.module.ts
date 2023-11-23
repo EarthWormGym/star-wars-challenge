@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatInputModule } from '@angular/material/input';
 
@@ -18,6 +19,7 @@ import { StarWarsService } from './star-wars.service';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatInputModule
   ],
   providers: [
