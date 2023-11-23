@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
@@ -13,7 +16,9 @@ import { StarWarsService } from './star-wars.service';
     DisplayComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [
     StarWarsService
