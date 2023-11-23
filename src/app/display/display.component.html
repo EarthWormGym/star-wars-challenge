@@ -1,4 +1,18 @@
 <div class="container">
     <h1>Character Details:</h1>
-    {{ characterData | json }}
-</div>
+  
+    <ng-container *ngIf="characterData$ | async as characterData">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>ID: {{ characterData.id }}</mat-card-title>
+        </mat-card-header>
+  
+        <mat-card-content>
+          <p>Name: {{ characterData.name }}</p>
+          <p>Height: {{ characterData.height }}</p>
+          <p>Hair Color: {{ characterData.hairColour }}</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+  

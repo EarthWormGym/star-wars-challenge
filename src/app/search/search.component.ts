@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { StarWarsService } from '../star-wars.service';
 
 @Component({
   selector: 'app-search',
@@ -9,14 +10,14 @@ import { FormBuilder } from '@angular/forms';
 export class SearchComponent {
   //Initialize form here due to strict property initialization
   starWarsForm = this.fb.group({
-    characterId: ''
+    characterId: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private starwarsService: StarWarsService) { }
 
   onSubmit() {
     const characterIdValue = this.starWarsForm.get('characterId')?.value;
-    console.log(characterIdValue);
+    this.starwarsService.getCharacter(Number(characterIdValue));
     this.starWarsForm.reset();
   }
   

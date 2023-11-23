@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { character } from './character';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StarWarsService {
-  characterData$?: Observable<character>;
+  private characterDataSubject = new Subject<character>();
+  characterData$ = this.characterDataSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getCharacter(): Observable<character> {
-    const API_URL = "https://swapi.dev/api/people/1";
-    this.characterData$ = this.http.get<any>(API_URL).pipe(
-      map((data) => this.mapCharacter(data))
-    );
+  getCharacter(characterId: number) {
+    const API_URL = `https://swapi.dev/api/people/${characterId}`;
 
-    this.characterData$.forEach(value => console.log(value));
-  
-    return this.characterData$;
+    this.http.get<any>(API_URL).pipe(
+      map((data) => this.mapCharacter(characterId, data))
+    ).subscribe((characterData: character) => {
+      this.characterDataSubject.next(characterData);
+    });
   }
 
-  private mapCharacter(data: any): character {
+  private mapCharacter(characterId: number, data: any): character {
     return {
-      id: 1,
+      id: characterId,
       name: data.name,
       height: parseInt(data.height, 10),
       hairColour: data.hair_color

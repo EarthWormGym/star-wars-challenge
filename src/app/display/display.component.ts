@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StarWarsService } from '../star-wars.service';
+import { character } from '../character';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-display',
@@ -7,12 +9,12 @@ import { StarWarsService } from '../star-wars.service';
   styleUrl: './display.component.css'
 })
 export class DisplayComponent implements OnInit {
-  characterData = {};
+  characterData$?: Observable<character>;
 
   constructor(private _starwarsService: StarWarsService) { }
 
-  ngOnInit(): void {
-    this.characterData = this._starwarsService.getCharacter();
+  ngOnInit() { 
+    this.characterData$ = this._starwarsService.characterData$;
   }
 
 }
