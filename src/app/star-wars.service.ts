@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { character } from './character';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { throwError, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,11 @@ export class StarWarsService {
     const API_URL = `https://swapi.dev/api/people/${characterId}`;
 
     this.http.get<any>(API_URL).pipe(
-      map((data) => this.mapCharacter(characterId, data))
+      map((data) => this.mapCharacter(characterId, data)),
+      catchError((error) => {
+        console.error('Error fetching character:', error);
+        return throwError(error);
+      })
     ).subscribe((characterData: character) => {
       this.characterDataSubject.next(characterData);
     });

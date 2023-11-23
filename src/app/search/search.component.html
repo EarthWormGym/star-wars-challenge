@@ -3,6 +3,9 @@
         <label>Favourite Star Wars character:</label>
         <mat-form-field>
             <input matInput placeholder="character Id" formControlName="characterId">
+            <mat-error *ngIf="starWarsForm.get('characterId')?.hasError('required') && starWarsForm.get('characterId')?.touched">
+                Character ID is required.
+            </mat-error>
         </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit">Search</button>

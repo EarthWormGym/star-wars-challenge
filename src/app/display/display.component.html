@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Character Details:</h1>
   
-    <ng-container *ngIf="characterData$ | async as characterData">
+    <ng-container *ngIf="characterData$ | async as characterData; else loading">
       <mat-card>
         <mat-card-header>
           <mat-card-title>ID: {{ characterData.id }}</mat-card-title>
@@ -14,5 +14,6 @@
         </mat-card-content>
       </mat-card>
     </ng-container>
+    <ng-template #loading>Loading...</ng-template>
   </div>
   
